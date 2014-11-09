@@ -180,6 +180,14 @@ void Settings::setLengthOfNote(int lengthOfNote) {
     }
 }
 
+void Settings::setViewMode(QString viewMode) {
+    if (_viewMode != viewMode) {
+        _viewMode = viewMode;
+        m_settings->setValue("viewMode", _viewMode);
+        emit viewModeChanged();
+    }
+}
+
 // Items
 void Settings::setAutoMarkRead(bool autoMarkRead) {
     if (_autoMarkRead != autoMarkRead) {
@@ -257,6 +265,7 @@ Settings::Settings(QObject *parent) : QObject(parent), m_settings(new QSettings(
     _displayLabels = m_settings->value("displayLabels", true).toBool();
     _showNote = m_settings->value("showNote", true).toBool();
     _lengthOfNote = m_settings->value("lengthOfNote", 2).toInt();
+    _viewMode = m_settings->value("viewMode", "").toString();
 
     // Items
     _autoMarkRead = m_settings->value("autoMarkRead", true).toBool();

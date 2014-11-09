@@ -57,6 +57,7 @@ class Settings : public QObject
     Q_PROPERTY(bool displayLabels READ displayLabels WRITE setDisplayLabels NOTIFY displayLabelsChanged)
     Q_PROPERTY(bool showNote READ showNote WRITE setShowNote NOTIFY showNoteChanged)
     Q_PROPERTY(int lengthOfNote READ lengthOfNote WRITE setLengthOfNote NOTIFY lengthOfNoteChanged)
+    Q_PROPERTY(QString viewMode READ viewMode WRITE setViewMode NOTIFY viewModeChanged)
 
     // Items
     Q_PROPERTY(bool autoMarkRead READ autoMarkRead WRITE setAutoMarkRead NOTIFY autoMarkReadChanged)
@@ -167,6 +168,11 @@ public:
     }
     void setLengthOfNote(int lengthOfNote);
 
+    QString viewMode() const {
+        return this->_viewMode;
+    }
+    void setViewMode(QString viewMode);
+
     // Items
     bool autoMarkRead() const {
         return this->_autoMarkRead;
@@ -226,6 +232,7 @@ signals:
     void displayLabelsChanged();
     void showNoteChanged();
     void lengthOfNoteChanged();
+    void viewModeChanged();
 
     // Items
     void autoMarkReadChanged();
@@ -272,6 +279,7 @@ private:
     bool _displayLabels;
     bool _showNote;
     int _lengthOfNote;
+    QString _viewMode;
 
     // Items
     bool _autoMarkRead;

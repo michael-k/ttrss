@@ -63,8 +63,9 @@ var responsesPending = {}
  * Sets the initial values of variables state, requestsPending, and
  * responsesPending.  This deletes any former values.
  * @param {boolean} Initial value of showAll.
+ * @param {string} Initial value of viewMode.
  */
-function initState(showAll) {
+function initState(showAll, viewMode) {
     state = {
         'imageProxy':   '',
         'url':          null,
@@ -75,6 +76,7 @@ function initState(showAll) {
         'token':        null,
         'apilevel':     0,
         'showall':      false, // see getter/setter for documentation
+        'viewmode':     '',    // see getter/setter for documentation
         'closeIfEmpty': false, // Should pages close if they have no content to display
         'tracelevel':   1,     // 1 = errors, 2 = key info, 3 = network traffic,
                                // 4 = info, 5 = high detail
@@ -112,6 +114,7 @@ function initState(showAll) {
 
     // Set default values given as parameters
     setShowAll(showAll)
+    setViewMode(viewMode)
 }
 
 /**
@@ -185,6 +188,41 @@ function getShowAll() {
  */
 function setShowAll(showAll) {
     state['showall'] = !!showAll;
+}
+
+/**
+ * The view mode defines which items should be shown.
+ * @return {array} The list of supported view modes.
+ */
+function getSupportedViewModes() {
+    // Currently not supported: adaptive, marked, and updated
+    return ['all_articles', 'unread']
+}
+
+/**
+ * The items that are currently shown.
+ * @return {string} The current view mode.
+ */
+function getViewMode() {
+    return state['viewmode'];
+}
+
+/**
+ * Set which items should be shown.
+ * @param {string} The view mode to be used.
+ */
+function setViewMode(viewMode) {
+    if (!viewMode || viewMode === '') {
+        // Use 'unread' as the default view mode.
+        viewMode = 'unread'
+    }
+
+    var supported = getSupportedViewModes()
+    if (supported.indexOf(viewMode) < 0) {
+        throw 'View mode "' + viewMode + '" is not supported.'
+    }
+
+    state['viewmode'] = viewMode;
 }
 
 /**
