@@ -48,6 +48,7 @@ class Settings : public QObject
     // Feeds
     Q_PROPERTY(bool displayIcons READ displayIcons WRITE setDisplayIcons NOTIFY displayIconsChanged)
     Q_PROPERTY(bool whiteBackgroundOnIcons READ whiteBackgroundOnIcons WRITE setWhiteBackgroundOnIcons NOTIFY whiteBackgroundOnIconsChanged)
+    Q_PROPERTY(bool showAll READ showAll WRITE setShowAll NOTIFY showAllChanged)
 
     // Item List
     Q_PROPERTY(int feeditemsOrder READ feeditemsOrder WRITE setFeeditemsOrder NOTIFY feeditemsOrderChanged)
@@ -67,9 +68,6 @@ class Settings : public QObject
 
     // Harmattan
     Q_PROPERTY(bool whiteTheme READ isWhiteTheme WRITE setWhiteTheme NOTIFY whiteThemeChanged)
-
-    // Other
-    Q_PROPERTY(bool showAll READ showAll WRITE setShowAll NOTIFY showAllChanged)
 
 public:
     static Settings *instance();
@@ -131,6 +129,11 @@ public:
         return this->_whiteBackgroundOnIcons;
     }
     void setWhiteBackgroundOnIcons(bool whiteBackgroundOnIcons);
+
+    bool showAll() const {
+        return this->_showAll;
+    }
+    void setShowAll(bool showAll);
 
     // Item List
     int feeditemsOrder() const {
@@ -200,12 +203,6 @@ public:
     }
     void setWhiteTheme(bool whiteTheme);
 
-    // Other
-    bool showAll() const {
-        return this->_showAll;
-    }
-    void setShowAll(bool showAll);
-
 signals:
     // Login Credentials
     void servernameChanged();
@@ -223,6 +220,7 @@ signals:
     // Feeds
     void displayIconsChanged();
     void whiteBackgroundOnIconsChanged();
+    void showAllChanged();
 
     // Item List
     void feeditemsOrderChanged();
@@ -242,9 +240,6 @@ signals:
 
     // Harmattan
     void whiteThemeChanged();
-
-    // Other
-    void showAllChanged();
 
 private:
     static QScopedPointer<Settings> m_instance;
@@ -270,6 +265,7 @@ private:
     // Feeds
     bool _displayIcons;
     bool _whiteBackgroundOnIcons;
+    bool _showAll;
 
     // Item List
     int _feeditemsOrder;
@@ -289,8 +285,5 @@ private:
 
     // Harmattan
     bool _whiteTheme;
-
-    // Other
-    bool _showAll;
 };
 #endif // SETTINGS_HH

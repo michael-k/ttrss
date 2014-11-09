@@ -123,6 +123,14 @@ void Settings::setWhiteBackgroundOnIcons(bool whiteBackgroundOnIcons) {
     }
 }
 
+void Settings::setShowAll(bool showAll) {
+    if (_showAll != showAll) {
+        _showAll = showAll;
+        m_settings->setValue("showAll", _showAll);
+        emit showAllChanged();
+    }
+}
+
 // Item List
 void Settings::setFeeditemsOrder(int feeditemsOrder) {
     if (_feeditemsOrder != feeditemsOrder) {
@@ -230,15 +238,6 @@ void Settings::setWhiteTheme(bool whiteTheme) {
     }
 }
 
-// Other
-void Settings::setShowAll(bool showAll) {
-    if (_showAll != showAll) {
-        _showAll = showAll;
-        m_settings->setValue("showAll", _showAll);
-        emit showAllChanged();
-    }
-}
-
 Settings::Settings(QObject *parent) : QObject(parent), m_settings(new QSettings(this)) {
     // Login Credentials
     _servername = m_settings->value("servername", "http://").toString();
@@ -256,6 +255,7 @@ Settings::Settings(QObject *parent) : QObject(parent), m_settings(new QSettings(
     // Feeds
     _displayIcons = m_settings->value("displayIcons", true).toBool();
     _whiteBackgroundOnIcons = m_settings->value("whiteBackgroundOnIcons", true).toBool();
+    _showAll = m_settings->value("showAll", false).toBool();
 
     // Item List
     _feeditemsOrder = m_settings->value("feeditemsOrder", 0).toInt();
@@ -275,7 +275,4 @@ Settings::Settings(QObject *parent) : QObject(parent), m_settings(new QSettings(
 
     // Harmattan
     _whiteTheme = m_settings->value("whiteTheme", true).toBool();
-
-    // Other
-    _showAll = m_settings->value("showAll", false).toBool();
 }
