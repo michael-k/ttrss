@@ -195,8 +195,8 @@ function setShowAll(showAll) {
  * @return {array} The list of supported view modes.
  */
 function getSupportedViewModes() {
-    // Currently not supported: adaptive, marked, and updated
-    return ['all_articles', 'unread']
+    // Currently not supported: adaptive and updated
+    return ['all_articles', 'unread', 'marked']
 }
 
 /**

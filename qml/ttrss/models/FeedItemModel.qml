@@ -232,6 +232,10 @@ ListModel {
         ttrss.updateFeedStar(item.id, newState, function(successful,
                                                          errorMessage) {
             if (successful) {
+                if (settings.viewMode === 'marked') {
+                    root.continuation += newState ? +1 : -1
+                }
+
                 root.setProperty(index, "marked", newState)
                 root.itemStarChanged(item)
             }
