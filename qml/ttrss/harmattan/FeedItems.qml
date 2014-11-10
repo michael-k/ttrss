@@ -88,7 +88,8 @@ Page {
         EmptyListInfoLabel {
             text: network.loading ?
                       qsTr("Loading") :
-                      settings.showAll ? qsTr("No items in feed") : qsTr("No unread items in feed")
+                      settings.viewMode === 'all_articles' ? qsTr("No items in feed")
+                                                           : qsTr("No unread items in feed")
             anchors.fill: parent
             anchors.margins: MyTheme.paddingLarge
             visible: feedItems.count == 0
@@ -118,7 +119,7 @@ Page {
         visualParent: pageStack
 
         MenuLayout {
-            ToggleShowAllItem {
+            ChangeViewModeItem {
                 onUpdateView: {
                     feedItems.continuation = 0
                     feedItems.hasMoreItems = false

@@ -572,7 +572,7 @@ function updateFeedItems(feedId, isCat, continuation, callback) {
         'show_excerpt': false,
         'show_content': true, // we want the content, so we do not have to load
                               // every article for itself
-        'view_mode': (state['showall'] ? 'all_articles' : 'unread'),
+        'view_mode': state['viewmode'],
         'skip': continuation
     }
 

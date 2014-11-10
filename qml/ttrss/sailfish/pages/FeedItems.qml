@@ -61,7 +61,8 @@ Page {
                     feedItemModel.update()
                 }
             }
-            ToggleShowAllItem {
+
+            ChangeViewModeItem {
                 onUpdateView: {
                     feedItemModel.continuation = 0
                     feedItemModel.hasMoreItems = false
@@ -69,6 +70,7 @@ Page {
                     feedItemModel.update()
                 }
             }
+
             MenuItem {
                 text: qsTr('Mark all loaded read')
                 onClicked: markAllLoadedAsRead()
@@ -81,7 +83,8 @@ Page {
                 text: qsTr('Mark all loaded read')
                 onClicked: markAllLoadedAsRead()
             }
-            ToggleShowAllItem {
+
+            ChangeViewModeItem {
                 onUpdateView: {
                     feedItemModel.continuation = 0
                     feedItemModel.hasMoreItems = false
@@ -142,9 +145,22 @@ Page {
 
         ViewPlaceholder {
             enabled: listView.count == 0
-            text: network.loading ?
-                      qsTr("Loading") :
-                      settings.showAll ? qsTr("No items in feed") : qsTr("No unread items in feed")
+            text: network.loading ? qsTr("Loading") : getText()
+            function getText() {
+                switch(settings.viewMode) {
+                case 'all_articles':
+                    return qsTr('No items in feed')
+                case 'adaptive':
+                    return qsTr('No items to show')
+                case 'marked':
+                    return qsTr('No marked items in feed')
+                case 'updated':
+                    return qsTr('No updated items in feed')
+                case 'unread':
+                default:
+                    return qsTr('No unread items in feed')
+                }
+            }
         }
         BusyIndicator {
             visible: listView.count != 0 && network.loading

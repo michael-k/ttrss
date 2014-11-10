@@ -173,7 +173,7 @@ ListModel {
                     var item = root.get(i)
                     if (item.unread) {
                         root.setProperty(i, "unread", false)
-                        if (!settings.showAll) {
+                        if (settings.viewMode === 'unread') {
                             root.continuation += 1
                         }
                         root.itemUnreadChanged(item)
@@ -205,7 +205,7 @@ ListModel {
         ttrss.updateFeedUnread(item.id, newState, function(successful,
                                                            errorMessage) {
             if (successful) {
-                if (!settings.showAll) {
+                if (settings.viewMode === 'unread') {
                     root.continuation += newState ? +1 : -1
                 }
 
